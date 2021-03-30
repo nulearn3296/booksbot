@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-
+'''
 class BooksSpider(scrapy.Spider):
     name = "books"
     allowed_domains = ["books.toscrape.com"]
@@ -28,3 +28,20 @@ class BooksSpider(scrapy.Spider):
         ).extract_first()
         item['price'] = response.css('p.price_color ::text').extract_first()
         yield item
+        '''
+
+class QuotesSpider(scrapy.Spider):
+    name = "quotes1"
+
+    def start_requests(self):
+        urls = [
+            'http://quotes.toscrape.com/page/1/',
+            'http://quotes.toscrape.com/page/2/',
+        ]
+        requests = []
+        for url in urls:
+            requests.append(scrapy.Request(url=url, callback=self.parse))
+        return requests
+
+    def parse(self, response):
+        self.log('I just visited {}'.format(response.url))
