@@ -38,6 +38,7 @@ class QuotesSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
+        item = {}
         item['title'] = response.css('h2.prod-buy-header__title').extract_first()
         yield item        
 
