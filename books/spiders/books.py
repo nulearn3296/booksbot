@@ -29,22 +29,15 @@ class BooksSpider(scrapy.Spider):
         item['price'] = response.css('p.price_color ::text').extract_first()
         yield item
         '''
+
+# https://link.coupang.com/re/AFFSDP?lptag=AF1234567&pageKey=2128457892&itemId=3612631996&vendorItemId=71598275778&traceid=V0-153-cdf3ae22673fa330
 class QuotesSpider(scrapy.Spider):
-    name = "quotes-pagination"
+    name = "coupang"
     start_urls = [
-        'http://quotes.toscrape.com',
+        'https://link.coupang.com/re/AFFSDP?lptag=AF1234567&pageKey=2128457892&itemId=3612631996&vendorItemId=71598275778&traceid=V0-153-cdf3ae22673fa330',
     ]
 
     def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.css('span small::text').extract_first(),
-                'tags': quote.css('div.tags a.tag::text').extract(),
-            }
-
-        next_page = response.css("li.next > a::attr(href)").extract_first()
-        if next_page is not None:
-            url = response.urljoin(next_page)
-            yield scrapy.Request(url, callback=self.parse)
+        item['title'] = response.css('h2.prod-buy-header__title').extract_first()
+        yield item        
 
