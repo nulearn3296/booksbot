@@ -34,11 +34,11 @@ class BooksSpider(scrapy.Spider):
 class QuotesSpider(scrapy.Spider):
     name = "coupang"
     start_urls = [
-        'http://quotes.toscrape.com/page/1',
+        'https://www.coupang.com/vp/products/2128457892',
     ]
 
     def parse(self, response):
         yield {
-            'title': response.css('span.text::text').extract_first()           
+            'title': response.css('h2.prod-buy-header__title::text').extract_first()           
         }
 
