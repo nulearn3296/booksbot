@@ -34,11 +34,11 @@ class BooksSpider(scrapy.Spider):
 class QuotesSpider(scrapy.Spider):
     name = "coupang"
     start_urls = [
-        'https://link.coupang.com/re/AFFSDP?lptag=AF1234567&pageKey=2128457892&itemId=3612631996&vendorItemId=71598275778&traceid=V0-153-cdf3ae22673fa330',
+        'http://quotes.toscrape.com/page/1',
     ]
 
     def parse(self, response):
         yield {
-            'title': response.css('h2.prod-buy-header__title::text').extract_first()           
+            'title': response.css('span.text::text').extract_first()           
         }
 
